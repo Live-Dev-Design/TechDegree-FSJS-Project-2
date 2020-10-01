@@ -2,21 +2,27 @@
 Treehouse Techdegree:
 FSJS Project 2 - Data Pagination and Filtering
 ***********************************************/
+// To do - 
+// 1. bug - search filter works until page button used, then non-responsive
+// 2. add - way to hide buttons if fewer students after search filter used
 
-/*********
-variables
-**********/
+/**** variables ****/
+
+
 const header = document.querySelector("header");
 const ul = document.querySelector(".student-list");
+
+const createNoMatchLi = document.createElement("li");
+createNoMatchLi.setAttribute("id", "no-match");
+createNoMatchLi.innerHTML = `<h2 class="no-results">No match found</h2>`;
+createNoMatchLi.style.display = "none";
+ul.appendChild(createNoMatchLi);
 const perPage = 9;
-const ulChildren = ul.children;
 
-/*****************
-showPage function
-******************/
+/****** showPage function ******/
 function showPage(list, page) {
-
-  // two variables represent the index for the first and last student on the page
+   const ul = document.querySelector(".student-list");
+   // two variables represent the index for the first and last student on the page
    const startIndex = (page * perPage) - perPage;
    const endIndex = page * perPage;
    ul.innerHTML = ''; // set ul html to an empty string
@@ -43,20 +49,18 @@ function showPage(list, page) {
          ul.appendChild(li); // append the list item to the ul
          li.style.display = ""; // set list item style to be visible
       } else {
-        li.style.display = "none"; // set list item style to none
+         li.style.display = "none"; // set list item style to none
       }
    }
 }
 
-/**********************
-addPagination function
-***********************/
+/****** addPagination function ******/
 function addPagination(list) {
+   
    const numOfPages = Math.ceil(list.length / perPage);   // variable to calculate the number of pages needed
    const paginationUl = document.querySelector(".link-list");  // getting the ul element using it's class of 'link-list'
    paginationUl.innerHTML = '';  // set innerHTML of ul to empty string
    
-  // loop over the number of pages needed
    for (let i = 1; i <= numOfPages; i++) {
       const button = `<li><button type="button">${i}</button></li>`; // using a template literal to dynamically change the buttons text
       paginationUl.insertAdjacentHTML("beforeend", button); // insert the button inside the ul element but after it's last child element
@@ -75,12 +79,9 @@ function addPagination(list) {
    }
 }
 
-/**********************
-searchFilter function
-***********************/
-// Next to work on
+/********** createFilter function **********/
 
-function searchFilter() {
+function createFilter() {
   const label = document.createElement("label");
   label.setAttribute("for", "search");
   label.className = "student-search";
@@ -88,23 +89,55 @@ function searchFilter() {
   const input = document.createElement("input");
   input.id = "search";
   input.setAttribute("placeholder", "Search by name...");
+  input.setAttribute("autocomplete", "off");
   input.type = "text";
 
   const button = document.createElement("button");
   button.type = "button";
-  button.innerHTML = `<img src="img/icn-search.svg" alt="Search icon">`;
+  button.innerHTML = `<img src="img/icn-search.svg" class= "submit" alt="Search icon">`;
 
   header.appendChild(label);
   label.appendChild(input);
   label.appendChild(button);
+
+  const submit = document.querySelector("button");
+  const search = document.querySelector("#search");
+  const studentLi = document.querySelectorAll('li.student-item');
+
+  submit.addEventListener("click", (e) => {
+    e.preventDefault();
+      searchFilter(search, studentLi);
+  });
+
+  search.addEventListener("keyup", () => {
+    searchFilter(search, studentLi);
+  });
+}
+
+/***** searchFilter function *****/
+
+function searchFilter(searchInput, names) {
+ 
+   for (let i = 0; i < names.length; i++) {
+      const fullName = `${data[i].name.first} ${data[i].name.last}`;
+
+      if (searchInput.value == "") {
+         // if input is empty display all students
+         names[i].style.display = "";
+      } else if (searchInput.value.length !== 0 && fullName.toLowerCase().includes(searchInput.value.toLowerCase())) {
+         names[i].style.display = "";
+      } else {
+         // else set display to 'none'
+         names[i].style.display = "none";
+         
+      }      
+   }
 }
 
 
-/**************
-Call functions
-***************/
-   showPage(data, 1);
-   searchFilter();
-   addPagination(data);
+/**** Call functions ****/
 
- 
+  showPage(data, 1);
+  createFilter();
+  addPagination(data);
+  
