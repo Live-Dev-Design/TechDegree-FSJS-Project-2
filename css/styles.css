@@ -8,7 +8,12 @@
 
 body {
 	font-family: 'Montserrat', Helvetica, sans-serif;
-	background-color: rgb(229, 238, 250);
+  background-image: url(../img/img1.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #222831;
   transition: 0.4s;
 }
 
@@ -35,10 +40,10 @@ header {
 }
 
 header h2 {
-  font-size: 36px;
+  font-size: 32px;
   text-transform: uppercase;
   font-weight: 800;
-  color: #4a5568;
+  color: #00adb5;
   letter-spacing: 2px;
 	margin-bottom: 25px;
 }
@@ -52,10 +57,16 @@ header h2 {
 .student-search input {
   width: 100%;
   border-radius: 4px 0 0 4px;
-  border: 1px solid rgb(30, 144, 255);
+  border: 1px solid #00adb5;
   padding: 10px 16px;
   font-size: 14px;
 }
+
+.student-search input:focus {
+    outline: none !important;
+    border-color: #00adb5;
+    box-shadow: 0 0 8px #00adb5;}
+
 
 .student-search input::placeholder {
   color: #929b9e;
@@ -65,11 +76,11 @@ header h2 {
   cursor: pointer;
   width: 55px;
   border-radius: 0 4px 4px 0;
-  border: 1px solid #1e90ff;
+  border: 1px solid #00adb5;
   border-left: none;
   padding: 0px 5px;
   font-size: 14px;
-  background-color: #1e90ff;
+  background-color: #00adb5;
   color: #fff;
 }
 
@@ -120,7 +131,7 @@ header h2 {
 	font-weight: 600;
 	font-size: 1.2rem;
   margin-bottom: 0.45em;
-  color: #1e90ff;
+  color: #00adb5;
 }
 
 .student-item .email {
@@ -162,13 +173,13 @@ header h2 {
   border: none;
   border-radius: 3px;
   text-decoration: none;
-	color: #1e90ff;
+	color: #00adb5;
 	box-shadow: 0 1px 8px 0 rgba(22, 42, 90, 0.05);
 	transition: 0.4s;
 }
 
 .pagination li button.active, .pagination li button:hover {
-  background-color: #1e90ff;
+  background-color: #00adb5;
   color: #fff;
 }
 
@@ -178,7 +189,7 @@ header h2 {
 	font-family: 'Nunito', sans-serif;
 	display: block;
 	font-size: 1.5rem;
-	color: #6d778a;
+	color: #222831;
 	width: 500px;
 	margin-top: 15px;
 	margin-bottom: 15px;
